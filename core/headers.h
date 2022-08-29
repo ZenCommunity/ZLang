@@ -5,6 +5,9 @@
 #include <string>
 #include <iostream>
 #include <variant>
+#include <vector>
+#include <algorithm>
+#include <iterator>
 
 using namespace std;
 

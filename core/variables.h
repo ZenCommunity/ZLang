@@ -1,10 +1,6 @@
 #ifndef Z_VARIABLES_H
 #define Z_VARIABLES_H
 
-#include <vector>
-#include <algorithm>
-#include <iterator>
-
 class Value {
 public:
     value _value;
@@ -80,14 +76,4 @@ public:
         });
     };
 };
-
-struct Echo
-{
-    template< typename T >
-    void operator() ( const T & value ) const
-    {
-        std::cout << value;
-    }
-};
-
 #endif
