@@ -10,7 +10,6 @@
 #include "output.h"
 
 #include "strings.h"
-#include "singletons.h"
 #include "app.h"
 
 #endif
