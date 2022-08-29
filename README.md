@@ -29,7 +29,7 @@ Z will implement plugins and libraries.
 def name = in.read("What is your name? ")
 out.print("Hello ${name}, welcome to Z.")
 
-➜ z io
+➜ Z io
 What is your name? Core
 Hello Core, welcome to Z.
 ```
@@ -41,7 +41,7 @@ Hello Core, welcome to Z.
 def name = "Ian"
 out.print(name.after("I"))
 
-➜ z strings
+➜ Z strings
 an
 ```
 
@@ -58,7 +58,7 @@ try {
                       "The reason was ${case.quotes.reason()}.",
 }
 
-➜ z exception
+➜ Z exception
 NotFound Exception
 ==================
 Something went wrong
@@ -84,6 +84,9 @@ mysql.defineFunction("connect", [](Parameters){
 })
 
 ➜ ./compile.sh --with-plugins="mysql"
+[2/2] Linking CXX executable Z
+
+Build finished
 
 ➜ nano client
 try {
@@ -92,7 +95,7 @@ try {
     default (case) => case.error()
 }
 
-➜ z client
+➜ Z client
 ConnectionRefused Exception
 ===========================
 SQLSTATE[HY000] [2002] Connection Refused
