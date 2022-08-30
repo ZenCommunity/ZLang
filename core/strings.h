@@ -1,35 +1,36 @@
 #ifndef Z_STRINGS_H
 #define Z_STRINGS_H
 
-namespace String {
+class String {
+public:
+    string value_;
+    explicit String(string value) : value_(std::move(value)) {}
+
     /**
      * Returns a substring given the min and max.
-     * @param input
      * @param min
      * @param max
      * @return string
      */
-    string sub(string &input, size_t min, size_t max) {
-        return input.substr(min, max);
+    String * sub(size_t min, size_t max) {
+        return new String(value_.substr(min, max));
     };
 
     /**
      * Returns the length of the input.
-     * @param input
      * @return size_t
      */
-    size_t count(string &input) {
-        return input.length();
+    size_t count() {
+        return value_.length();
     };
 
     /**
      * Returns the position of the given value.
-     * @param input
      * @param search
      * @return size_at
      */
-    size_t at(string &input, string &search) {
-        return input.find(search);
+    size_t at(String &search) {
+        return value_.find(search.value_);
     };
 
     /**
@@ -38,8 +39,8 @@ namespace String {
      * @param search
      * @return boolean
      */
-    boolean contains(string &input, string &search) {
-        return at(input, search) != NPOS;
+    boolean contains(String &search) {
+        return this->at(search) != NPOS;
     };
 
     /**
@@ -48,49 +49,53 @@ namespace String {
      * @param search
      * @return string
      */
-    string after(string &input, string &search) {
-        size_t position = at(input, search);
+    String * after(String & search) {
+        size_t position = this->at(search);
 
         if (position == NPOS)
-            throw String::NotFound();
+            throw StringException::NotFound();
 
-        return sub(input, position + count(search), count(input) - count(search));
+        return sub(position + search.count(), this->count() - search.count());
     };
 
     /**
+     * Returns a copy of the parameter.
+     * @return String
+     */
+    String * copy() {
+        return new String(value_);
+    }
+
+    /**
      * Returns everything after the last occurrence.
-     * @param input
      * @param search
      * @return string
      */
-    string afterLast(string &input, string &search) {
-        string copied = string(input);
-        size_t position = at(copied, search);
-
+    String * afterLast(String &search) {
+        String * copy = this->copy();
+        size_t position = copy->at(search);
         if (position == NPOS)
-            throw String::NotFound();
+            throw StringException::NotFound();
 
         while (position != NPOS) {
-            copied = sub(copied, position + count(search), count(input) - count(search));
-            position = at(copied, search);
+            copy = copy->sub(position + search.count(), this->count() - search.count());
+            position = copy->at(search);
         }
-
-        return copied;
+        return copy;
     };
 
     /**
      * Returns everything before the given value.
-     * @param input
      * @param search
      * @return string
      */
-    string before(string &input, string &search) {
-        size_t position = at(input, search);
+    String * before(String &search) {
+        size_t position = this->at(search);
 
         if (position == NPOS)
-            throw String::NotFound();
+            throw StringException::NotFound();
 
-        return sub(input, 0, position);
+        return sub(0, position);
     };
 
     /**
@@ -99,21 +104,21 @@ namespace String {
      * @param search
      * @return string
      */
-    string beforeLast(string &input, string &search) {
-        string copied = string(input);
-        size_t position = at(copied, search);
+    String * beforeLast(String &search) {
+        String * copy = this->copy();
+        size_t position = this->at(search);
         size_t result;
 
         if (position == NPOS)
-            throw String::NotFound();
+            throw StringException::NotFound();
 
         while (position != NPOS) {
             result = position;
-            copied = sub(copied, position + count(search), count(input) - count(search));
-            position = at(copied, search);
+            copy = copy->sub(position + search.count(), this->count() - search.count());
+            position = copy->at(search);
         }
 
-        return sub(input, 0, result);
+        return this->sub(0, result);
     };
 
     /**
@@ -123,10 +128,10 @@ namespace String {
      * @param end
      * @return string
      */
-    string between(string &input, string &start, string &end) {
-        string copied = string(input);
-        copied = afterLast(copied, start);
-        return beforeLast(copied, end);
+    String * between(String &start, String &end) {
+        String * copy = this->copy();
+        copy = copy->afterLast(start);
+        return copy->beforeLast(end);
     };
 
     /**
@@ -136,11 +141,11 @@ namespace String {
      * @param end
      * @return
      */
-    string betweenFirst(string &input, string &start, string &end) {
-        string copied = string(input);
-        copied = after(copied, start);
-        return before(copied, end);
+    String * betweenFirst(String &start, String &end) {
+        String * copy = this->copy();
+        copy = copy->after(start);
+        return copy->before(end);
     };
-}
+};
 
 #endif

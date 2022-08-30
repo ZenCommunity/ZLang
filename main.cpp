@@ -11,37 +11,42 @@ void render(boolean output)
     cout << "'" << output << "'" << endl;
 }
 
+void render(String * output)
+{
+    cout << "'" << output->value_ << "'" << endl;
+}
+
 int main() {
     // Strings
-    string hello_world = "Hello World";
-    string hello_world_camel = "hello_world";
-    string hello = "Hello";
-    string world = "World";
-    string space = " ";
-    string h = "H";
-    string e = "e";
-    string l = "l";
-    string o = "o";
-    string w = "W";
-    string r = "r";
-    string d = "d";
+    String hello_world("Hello World");
+    String hello_world_camel("hello_world");
+    String hello("Hello");
+    String world("World");
+    String space(" ");
+    String h("H");
+    String e("e");
+    String l("l");
+    String o("o");
+    String w("W");
+    String r("r");
+    String d("d");
 
-    render(String::contains(hello_world, hello));
-    render(String::after(hello_world, hello));
-    render(String::before(hello_world, world));
-    render(String::afterLast(hello_world, space));
-    render(String::beforeLast(hello_world, space));
-    render(String::between(hello_world, o, d));
-    render(String::betweenFirst(hello_world, h, o));
+    render(hello_world.contains(hello));
+    render(hello_world.after(hello));
+    render(hello_world.before(world));
+    render(hello_world.afterLast(space));
+    render(hello_world.beforeLast(space));
+    render(hello_world.between(o, d));
+    render(hello_world.between(h, o));
 
     cout << endl << "INPUT" << endl << endl;
 
-    cout << hello_world << endl;
-    cout << hello << endl;
-    cout << world << endl;
-    cout << space << endl;
+    render(&hello_world);
+    render(&hello);
+    render(&world);
+    render(&space);
 
-    cout << "VARIABLES" << endl << endl;
+    cout << endl << "VARIABLES" << endl << endl;
 
     Variable p_name;
     p_name._name = "username";

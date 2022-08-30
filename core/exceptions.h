@@ -11,7 +11,7 @@ public:
     }
 };
 
-namespace String {
+namespace StringException {
     class NotFound : public BaseException {
     private:
         string message_ = "String Not Found";
