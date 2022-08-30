@@ -43,7 +43,6 @@ public:
 
     /**
      * Determines if the given string contains the given value.
-     * @param input
      * @param search
      * @return boolean
      */
@@ -53,7 +52,6 @@ public:
 
     /**
      * Returns everything after the given value.
-     * @param input
      * @param search
      * @return string
      */
@@ -63,7 +61,7 @@ public:
         if (position == NPOS)
             throw StringException::NotFound();
 
-        return sub(position + search.count(), this->count() - search.count());
+        return this->sub(position + search.count(), this->count() - search.count());
     };
 
     /**
@@ -95,7 +93,7 @@ public:
     /**
      * Returns everything before the given value.
      * @param search
-     * @return string
+     * @return String
      */
     String * before(String &search) {
         size_t position = this->at(search);
@@ -103,14 +101,13 @@ public:
         if (position == NPOS)
             throw StringException::NotFound();
 
-        return sub(0, position);
+        return this->sub(0, position);
     };
 
     /**
      * Returns everything before the last occurrence.
-     * @param input
      * @param search
-     * @return string
+     * @return String
      */
     String * beforeLast(String &search) {
         String * copy = this->copy();
@@ -131,10 +128,9 @@ public:
 
     /**
      * Returns the portion of a string between two values.
-     * @param input
      * @param start
      * @param end
-     * @return string
+     * @return String
      */
     String * between(String &start, String &end) {
         String * copy = this->copy();
@@ -144,10 +140,9 @@ public:
 
     /**
      * Returns the smallest possible portion of a string between two values.
-     * @param input
      * @param start
      * @param end
-     * @return
+     * @return String
      */
     String * betweenFirst(String &start, String &end) {
         String * copy = this->copy();
