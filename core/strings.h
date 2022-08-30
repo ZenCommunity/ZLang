@@ -3,18 +3,16 @@
 
 class String {
 public:
+    /**
+     * Value
+     */
     string value_;
-    explicit String(string value) : value_(std::move(value)) {}
 
     /**
-     * Returns a substring given the min and max.
-     * @param min
-     * @param max
-     * @return string
+     * String Constructor
+     * @param value
      */
-    String * sub(size_t min, size_t max) {
-        return new String(value_.substr(min, max));
-    };
+    explicit String(string value) : value_(std::move(value)) {}
 
     /**
      * Returns the length of the input.
@@ -31,6 +29,16 @@ public:
      */
     size_t at(String &search) {
         return value_.find(search.value_);
+    };
+
+    /**
+     * Returns a substring given the min and max.
+     * @param min
+     * @param max
+     * @return string
+     */
+    String * sub(size_t min, size_t max) {
+        return new String(value_.substr(min, max));
     };
 
     /**
