@@ -1,6 +1,8 @@
 #ifndef Z_VARIABLES_H
 #define Z_VARIABLES_H
 
+typedef variant<integer, string, boolean, String> value;
+
 class Value {
 public:
     value _value;

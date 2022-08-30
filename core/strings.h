@@ -1,6 +1,8 @@
 #ifndef Z_STRINGS_H
 #define Z_STRINGS_H
 
+#define NPOS string::npos
+
 class String {
 public:
     /**
@@ -13,6 +15,17 @@ public:
      * @param value
      */
     explicit String(string value) : value_(std::move(value)) {}
+
+    /**
+     *
+     * @param stream
+     * @param string_
+     * @return ostream
+     */
+    friend std::ostream& operator<< (ostream& stream, const String& string_) {
+        cout << string_.value_;
+        return stream;
+    }
 
     /**
      * Returns the length of the input.

@@ -1,11 +1,5 @@
 #include "core/core.h"
 
-
-void render(string output)
-{
-    cout << "'" << output << "'" << endl;
-}
-
 void render(boolean output)
 {
     cout << "'" << output << "'" << endl;
@@ -48,6 +42,14 @@ int main() {
 
     cout << endl << "VARIABLES" << endl << endl;
 
+    Variable t_name;
+    t_name._name = "creator";
+
+    Value t_string;
+    t_string._value = String("Ian Torres");
+
+    t_name.setValue(t_string);
+
     Variable p_name;
     p_name._name = "username";
 
@@ -69,6 +71,9 @@ int main() {
 
     cout << p_connected.getName() << endl;
     cout << p_connected.getValue() << endl;
+
+    cout << t_name.getName() << endl;
+    cout << t_name.getValue() << endl;
 
     cout << endl << "STORAGE" << endl << endl;
 
