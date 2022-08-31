@@ -11,13 +11,13 @@ public:
     string value_;
 
     /**
-     * String Constructor
+     * String Constructor.
      * @param value
      */
     explicit String(string value) : value_(std::move(value)) {}
 
     /**
-     *
+     * String Echo.
      * @param stream
      * @param string_
      * @return ostream
@@ -57,10 +57,10 @@ public:
     /**
      * Determines if the given string contains the given value.
      * @param search
-     * @return boolean
+     * @return Boolean
      */
-    boolean contains(String &search) {
-        return this->at(search) != NPOS;
+    Boolean * contains(String &search) {
+        return new Boolean(this->at(search) != NPOS);
     };
 
     /**

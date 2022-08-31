@@ -4,6 +4,7 @@
 #include "headers.h"
 #include "exceptions.h"
 #include "types.h"
+#include "booleans.h"
 #include "strings.h"
 #include "variables.h"
 #include "contexts.h"
