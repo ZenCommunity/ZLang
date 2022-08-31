@@ -1,7 +1,7 @@
 #ifndef Z_VARIABLES_H
 #define Z_VARIABLES_H
 
-typedef variant<integer, string, boolean, String, Boolean> TypeValue;
+typedef variant<integer, boolean, string, String, Boolean> TypeValue;
 
 class Value {
 public:
@@ -35,7 +35,6 @@ public:
     string getName() const {
         return _name;
     };
-protected:
     Value _value;
 };
 

@@ -92,6 +92,7 @@ int main() {
     Boolean b_verified = get<Boolean>(v_verified._value);
     cout << t_verified.getName() << endl;
     cout << t_verified.getValue() << endl;
+    cout << t_verified.getValue() << endl;
     cout << b_verified.isTrue() << endl;
 
     cout << endl;
@@ -109,24 +110,8 @@ int main() {
     cout << s_connected.getName() << endl;
     cout << s_connected.getValue() << endl;
 
-
     Boolean instanceA(TRUE);
     String instanceB("Hello World");
-
     TypeValue t_instanceA = instanceA;
-    TypeValue t_instanceB = instanceB;
-
-    Boolean instanceC = get<Boolean>(t_instanceA);
-    String instanceD = get<String>(t_instanceB);
-
-    cout << instanceC << endl;
-    cout << instanceD << endl;
-
-    String instanceE("");
-//    std::visit([&](auto&& resolved) {
-//        instanceE = resolved;
-//    }, t_instanceB);
-
-
     return 0;
 }
