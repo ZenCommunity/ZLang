@@ -11,7 +11,7 @@ struct Echo
 };
 
 ostream & operator << (ostream & os, const Value & instance) {
-    std::visit( Echo {}, instance._value);
+    std::visit( Echo {}, instance);
     return os;
 }
 

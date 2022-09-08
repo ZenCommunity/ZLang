@@ -10,6 +10,7 @@
 #include <iterator>
 #include <typeinfo>
 #include <utility>
+#include <memory>
 
 using namespace std;
 

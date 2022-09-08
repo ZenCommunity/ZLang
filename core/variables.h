@@ -1,16 +1,13 @@
 #ifndef Z_VARIABLES_H
 #define Z_VARIABLES_H
 
-typedef variant<integer, boolean, string, String, Boolean> TypeValue;
-
-class Value {
-public:
-    TypeValue _value;
-};
+typedef variant<String, Boolean> Value;
 
 class Variable {
 public:
     string _name;
+
+    Variable(string name, Value input) : _name(name), _value(input) {};
 
     /**
      * Assignee the value.

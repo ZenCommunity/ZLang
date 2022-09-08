@@ -42,57 +42,16 @@ int main() {
 
     cout << endl << "VARIABLES" << endl << endl;
 
-    Variable t_name;
-    t_name._name = "creator";
+    Variable creator("creator", String("Ian Torres"));
+    Variable verified("verified", Boolean(TRUE));
 
-    Value t_string;
-    t_string._value = String("Ian Torres");
-
-    t_name.setValue(t_string);
-
-    Variable p_name;
-    p_name._name = "username";
-
-    Value v_string;
-    v_string._value = "iantorres@outlook.com";
-
-    p_name.setValue(v_string);
-
-    Variable p_connected;
-    p_connected._name = "connected";
-
-    Value v_connected;
-    v_connected._value = TRUE;
-
-    p_connected.setValue(v_connected);
-
-    Variable t_verified;
-    t_verified._name = "verified";
-
-    Value v_verified;
-    v_verified._value = Boolean(TRUE);
-
-    t_verified.setValue(v_verified);
-
-    cout << p_name.getName() << endl;
-    cout << p_name.getValue() << endl;
-
+    cout << verified.getName() << endl;
+    cout << verified.getValue() << endl;
     cout << endl;
-
-    cout << p_connected.getName() << endl;
-    cout << p_connected.getValue() << endl;
-
-    cout << endl;
-
-    cout << t_name.getName() << endl;
-    cout << t_name.getValue() << endl;
-
-    cout << endl;
-
-    Boolean b_verified = get<Boolean>(v_verified._value);
-    cout << t_verified.getName() << endl;
-    cout << t_verified.getValue() << endl;
-    cout << t_verified.getValue() << endl;
+    Boolean b_verified = get<Boolean>(verified.getValue());
+    cout << verified.getName() << endl;
+    cout << verified.getValue() << endl;
+    cout << verified.getValue() << endl;
     cout << b_verified.isTrue() << endl;
 
     cout << endl;
@@ -100,18 +59,11 @@ int main() {
     cout << endl << "STORAGE" << endl << endl;
 
     Storage storage;
+    storage.insert(creator);
 
-    storage.insert(p_connected);
-
-    cout << "Variable should exists: " << storage.exists(p_connected._name) << endl;
-
-    Variable s_connected = storage.get(p_connected._name);
-
-    cout << s_connected.getName() << endl;
-    cout << s_connected.getValue() << endl;
-
-    Boolean instanceA(TRUE);
-    String instanceB("Hello World");
-    TypeValue t_instanceA = instanceA;
+    cout << "Variable should exists: " << storage.exists(creator._name) << endl;
+    Variable connectedOnStorage = storage.get(creator._name);
+    cout << connectedOnStorage.getName() << endl;
+    cout << connectedOnStorage.getValue() << endl;
     return 0;
 }
