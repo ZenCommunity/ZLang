@@ -14,6 +14,13 @@ enum Type {
 
 class Value {
 public:
+    Type _type = _UNDEFINED;
+
+    union {
+        String * _string;
+        Boolean * _boolean;
+    } _value{};
+
     Value(String * value) {
         _value._string = value;
         _type = Type::_STRING;
@@ -24,12 +31,21 @@ public:
         _type = Type::_BOOLEAN;
     }
 
-    union {
-        String * _string;
-        Boolean * _boolean;
-    } _value{};
+    /**
+     * Get String
+     * @return
+     */
+    String * getString() {
+        return _value._string;
+    }
 
-    Type _type = _UNDEFINED;
+    /**
+     * Get Boolean
+     * @return
+     */
+    Boolean * getBoolean() {
+        return _value._boolean;
+    }
 };
 
 class Variable {
@@ -55,7 +71,7 @@ public:
      * @return
      */
     auto getValue() {
-        return _value->_value;
+        return _value;
     };
 
     /**
@@ -69,13 +85,13 @@ public:
 
 class Storage {
 public:
-    std::vector<Variable> variables;
+    std::vector<Variable *> variables;
 
     /**
      * Insert variable into stack.
      * @param variable
      */
-    void insert(Variable & variable) {
+    void insert(Variable * variable) {
         variables.push_back(variable);
     };
 
@@ -84,10 +100,10 @@ public:
      * @param name
      * @return
      */
-    Variable get(string & name) {
-        for (Variable variable : variables)
+    Variable * get(string & name) {
+        for (Variable * variable : variables)
         {
-            if (variable._name == name) {
+            if (variable->_name == name) {
                 return variable;
             }
         }
@@ -100,9 +116,9 @@ public:
      * @return
      */
     boolean exists(string & name) {
-        return std::ranges::any_of(variables, [name](Variable & variable)
+        return std::ranges::any_of(variables, [name](Variable * variable)
         {
-            return variable._name == name;
+            return variable->_name == name;
         });
     };
 };

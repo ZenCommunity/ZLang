@@ -19,5 +19,4 @@ ostream & operator << (ostream & os, const Boolean * instance) {
     cout << instance->value_;
     return os;
 }
-
 #endif

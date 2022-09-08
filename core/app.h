@@ -3,7 +3,22 @@
 
 class App {
 public:
-    App() {}
+    Storage * _storage;
+
+    /**
+     * App Constructor
+     */
+    App() {
+        _storage = new Storage;
+    }
+
+    /**
+     * Get Storage
+     * @return
+     */
+    Storage * getStorage() {
+        return _storage;
+    }
 };
 
 class AppContainer
@@ -15,7 +30,6 @@ private:
 protected:
     AppContainer() = default;
     ~AppContainer() = default;
-    string value_;
 public:
     AppContainer(AppContainer &other) = delete;
     void operator=(const AppContainer &) = delete;
@@ -47,9 +61,8 @@ auto * AppContainer::CreateInstance() {
  */
 auto * AppContainer::GetInstance(){
     lock_guard<mutex> lock(mutex_);
-    if (instance == nullptr) {
+    if (instance == nullptr)
         instance = CreateInstance();
-    }
     return instance;
 }
 

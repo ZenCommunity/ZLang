@@ -9,6 +9,8 @@ void render(String * output) {
 }
 
 int main() {
+    App * instance = AppContainer::GetInstance();
+
     // Strings
     String hello_world("Hello World");
     String hello_world_camel("hello_world");
@@ -40,24 +42,33 @@ int main() {
 
     cout << endl << "VARIABLES" << endl << endl;
 
-    Variable creator("creator");
-    creator.setValue(new Value(new String("Ian Torres")));
+    auto * creator = new Variable("creator");
+    creator->setValue(new Value(new String("Ian Torres")));
 
-    cout << creator.getName() << endl;
-    cout << creator.getValue()._string << endl << endl;
+    cout << creator->getName() << endl;
+    cout << creator->getValue()
+                    ->getString() << endl << endl;
 
-    Variable connected("connected");
-    connected.setValue(new Value(new Boolean(TRUE)));
+    auto * connected = new Variable("connected");
+    connected->setValue(new Value(new Boolean(TRUE)));
 
-    cout << connected.getName() << endl;
-    cout << connected.getValue()._boolean << endl << endl;
+    cout << connected->getName() << endl;
+    cout << connected->getValue()
+                    ->getBoolean() << endl << endl;
 
-    Storage storage;
-    storage.insert(creator);
+    instance->getStorage()
+        ->insert(creator);
 
-    cout << "Variable should exists: " << storage.exists(creator._name) << endl << endl;
-    Variable connectedOnStorage = storage.get(creator._name);
-    cout << connectedOnStorage.getName() << endl;
-    cout << connectedOnStorage.getValue()._string << endl << endl;
+    cout << endl << "STORAGE" << endl << endl;
+
+    cout << "Variable should exists: " << instance->getStorage()
+                                                ->exists(creator->_name) << endl << endl;
+
+    auto connectedOnStorage = instance->getStorage()
+                                        ->get(creator->_name);
+
+    cout << connectedOnStorage->getName() << endl;
+    cout << connectedOnStorage->getValue()
+                            ->getString() << endl << endl;
     return 0;
 }
