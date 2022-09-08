@@ -5,6 +5,7 @@ set(CMAKE_CXX_STANDARD 23)
 set(MAIN main.cpp)
 set(CORE_DIR core)
 set(CORE ${CORE_DIR}/core.h)
+set(NUMBERS ${CORE_DIR}/numbers.h)
 set(STRINGS ${CORE_DIR}/strings.h)
 set(BOOLEANS ${CORE_DIR}/booleans.h)
 set(HEADERS ${CORE_DIR}/headers.h)
@@ -19,7 +20,9 @@ add_executable(
         Z
         ${MAIN}
         ${CORE}
+        ${NUMBERS}
         ${STRINGS}
+        ${BOOLEANS}
         ${HEADERS}
         ${EXCEPTIONS}
         ${TYPES}

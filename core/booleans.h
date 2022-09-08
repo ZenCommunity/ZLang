@@ -1,7 +1,6 @@
 #ifndef Z_BOOLEANS_H
 #define Z_BOOLEANS_H
 
-
 class Boolean {
 public:
     /**
@@ -18,7 +17,7 @@ public:
     /**
      * Boolean Echo.
      * @param stream
-     * @param string_
+     * @param boolean_
      * @return ostream
      */
     friend std::ostream& operator<< (ostream& stream, const Boolean& boolean_) {
