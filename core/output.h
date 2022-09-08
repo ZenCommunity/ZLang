@@ -10,8 +10,13 @@ struct Echo
     }
 };
 
-ostream & operator << (ostream & os, const Value & instance) {
-    std::visit( Echo {}, instance);
+ostream & operator << (ostream & os, const String * instance) {
+    cout << instance->value_;
+    return os;
+}
+
+ostream & operator << (ostream & os, const Boolean * instance) {
+    cout << instance->value_;
     return os;
 }
 

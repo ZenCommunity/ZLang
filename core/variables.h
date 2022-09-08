@@ -1,28 +1,61 @@
 #ifndef Z_VARIABLES_H
 #define Z_VARIABLES_H
 
-typedef variant<String, Boolean> Value;
+//typedef union _Value {
+//    String * _string;
+//    Boolean * _boolean;
+//} Value;
+
+enum Type {
+    _UNDEFINED = 0x00000000,
+    _STRING = 0x00000001,
+    _BOOLEAN = 0x00000002,
+};
+
+class Value {
+public:
+    Value(String * value) {
+        _value._string = value;
+        _type = Type::_STRING;
+    }
+
+    Value(Boolean * value) {
+        _value._boolean = value;
+        _type = Type::_BOOLEAN;
+    }
+
+    union {
+        String * _string;
+        Boolean * _boolean;
+    } _value{};
+
+    Type _type = _UNDEFINED;
+};
 
 class Variable {
 public:
     string _name;
+    Value * _value;
 
-    Variable(string name, Value input) : _name(name), _value(input) {};
+    Variable(string name) {
+        _name = name;
+        _value = {};
+    };
 
     /**
      * Assignee the value.
      * @param value
      */
-    void setValue(Value value) {
-        this->_value = value;
+    void setValue(Value * value) {
+        _value = value;
     };
 
     /**
      * Returns the value.
      * @return
      */
-    Value getValue() {
-        return this->_value;
+    auto getValue() {
+        return _value->_value;
     };
 
     /**
@@ -32,7 +65,6 @@ public:
     string getName() const {
         return _name;
     };
-    Value _value;
 };
 
 class Storage {

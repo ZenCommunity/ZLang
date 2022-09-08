@@ -1,12 +1,10 @@
 #include "core/core.h"
 
-void render(boolean output)
-{
+void render(boolean output) {
     cout << "'" << output << "'" << endl;
 }
 
-void render(String * output)
-{
+void render(String * output) {
     cout << "'" << output->value_ << "'" << endl;
 }
 
@@ -42,28 +40,24 @@ int main() {
 
     cout << endl << "VARIABLES" << endl << endl;
 
-    Variable creator("creator", String("Ian Torres"));
-    Variable verified("verified", Boolean(TRUE));
+    Variable creator("creator");
+    creator.setValue(new Value(new String("Ian Torres")));
 
-    cout << verified.getName() << endl;
-    cout << verified.getValue() << endl;
-    cout << endl;
-    Boolean b_verified = get<Boolean>(verified.getValue());
-    cout << verified.getName() << endl;
-    cout << verified.getValue() << endl;
-    cout << verified.getValue() << endl;
-    cout << b_verified.isTrue() << endl;
+    cout << creator.getName() << endl;
+    cout << creator.getValue()._string << endl << endl;
 
-    cout << endl;
+    Variable connected("connected");
+    connected.setValue(new Value(new Boolean(TRUE)));
 
-    cout << endl << "STORAGE" << endl << endl;
+    cout << connected.getName() << endl;
+    cout << connected.getValue()._boolean << endl << endl;
 
     Storage storage;
     storage.insert(creator);
 
-    cout << "Variable should exists: " << storage.exists(creator._name) << endl;
+    cout << "Variable should exists: " << storage.exists(creator._name) << endl << endl;
     Variable connectedOnStorage = storage.get(creator._name);
     cout << connectedOnStorage.getName() << endl;
-    cout << connectedOnStorage.getValue() << endl;
+    cout << connectedOnStorage.getValue()._string << endl << endl;
     return 0;
 }
