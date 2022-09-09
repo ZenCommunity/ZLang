@@ -10,8 +10,11 @@
 #include "variables.h"
 #include "contexts.h"
 #include "functions.h"
+#include "input.h"
 #include "output.h"
+#include "parser.h"
 
+#include "engine.h"
 #include "app.h"
 
 #endif

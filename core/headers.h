@@ -11,6 +11,9 @@
 #include <typeinfo>
 #include <utility>
 #include <memory>
+#include <fstream>
+#include <sstream>
+#include <regex>
 
 using namespace std;
 

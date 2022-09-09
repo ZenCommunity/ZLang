@@ -13,7 +13,9 @@ set(EXCEPTIONS ${CORE_DIR}/exceptions.h)
 set(TYPES ${CORE_DIR}/types.h)
 set(CONTEXTS ${CORE_DIR}/contexts.h)
 set(FUNCTIONS ${CORE_DIR}/functions.h)
+set(INPUT ${CORE_DIR}/input.h)
 set(OUTPUT ${CORE_DIR}/output.h)
+set(ENGINE ${CORE_DIR}/engine.h)
 set(APP ${CORE_DIR}/app.h)
 
 add_executable(
@@ -28,6 +30,8 @@ add_executable(
         ${TYPES}
         ${CONTEXTS}
         ${FUNCTIONS}
+        ${INPUT}
         ${OUTPUT}
+        ${ENGINE}
         ${APP}
 )

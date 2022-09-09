@@ -10,6 +10,7 @@ enum Type {
     _UNDEFINED = 0x00000000,
     _STRING = 0x00000001,
     _BOOLEAN = 0x00000002,
+    _NUMBER = 0x00000003,
 };
 
 class Value {
@@ -17,6 +18,7 @@ public:
     Type _type = _UNDEFINED;
 
     union {
+        Number * _number;
         String * _string;
         Boolean * _boolean;
     } _value{};
@@ -29,6 +31,11 @@ public:
     Value(Boolean * value) {
         _value._boolean = value;
         _type = Type::_BOOLEAN;
+    }
+
+    Value(Number * value) {
+        _value._number = value;
+        _type = Type::_NUMBER;
     }
 
     /**
@@ -45,6 +52,14 @@ public:
      */
     Boolean * getBoolean() {
         return _value._boolean;
+    }
+
+    /**
+     * Get Number
+     * @return
+     */
+    Number * getNumber() {
+        return _value._number;
     }
 };
 
@@ -85,7 +100,7 @@ public:
 
 class Storage {
 public:
-    std::vector<Variable *> variables;
+    vector<Variable *> variables;
 
     /**
      * Insert variable into stack.
@@ -116,8 +131,7 @@ public:
      * @return
      */
     boolean exists(string & name) {
-        return std::ranges::any_of(variables, [name](Variable * variable)
-        {
+        return ranges::any_of(variables, [name](Variable * variable) {
             return variable->_name == name;
         });
     };

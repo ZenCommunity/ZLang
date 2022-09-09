@@ -40,8 +40,8 @@ public:
      * @param search
      * @return size_at
      */
-    size_t at(String &search) {
-        return value_.find(search.value_);
+    size_t at(String * search) {
+        return value_.find(search->value_);
     };
 
     /**
@@ -55,11 +55,29 @@ public:
     };
 
     /**
+     * Determines if the given string is at the start.
+     * @param search
+     * @return Boolean
+     */
+    Boolean * startsWith(String * search) {
+        return new Boolean(this->at(search) == 0);
+    }
+
+    /**
+     * Determines if the given string is at the start.
+     * @param search
+     * @return Boolean
+     */
+    Boolean * endsWith(String * search) {
+        return new Boolean(this->at(search) == (this->count() - search->count()));
+    }
+
+    /**
      * Determines if the given string contains the given value.
      * @param search
      * @return Boolean
      */
-    Boolean * contains(String &search) {
+    Boolean * contains(String * search) {
         return new Boolean(this->at(search) != NPOS);
     };
 
@@ -68,14 +86,23 @@ public:
      * @param search
      * @return string
      */
-    String * after(String & search) {
+    String * after(String * search) {
         size_t position = this->at(search);
 
         if (position == NPOS)
             throw StringException::NotFound();
 
-        return this->sub(position + search.count(), this->count() - search.count());
+        return this->sub(position + search->count(), this->count() - search->count());
     };
+
+    /**
+     * Determines if the given string matches to the given pattern.
+     * @param pattern
+     * @return Boolean
+     */
+    Boolean * matches(String * pattern) {
+        return new Boolean(regex_match(this->value_, regex(pattern->value_)) == TRUE);
+    }
 
     /**
      * Returns a copy of the parameter.
@@ -90,14 +117,14 @@ public:
      * @param search
      * @return string
      */
-    String * afterLast(String &search) {
+    String * afterLast(String * search) {
         String * copy = this->copy();
         size_t position = copy->at(search);
         if (position == NPOS)
             throw StringException::NotFound();
 
         while (position != NPOS) {
-            copy = copy->sub(position + search.count(), this->count() - search.count());
+            copy = copy->sub(position + search->count(), this->count() - search->count());
             position = copy->at(search);
         }
         return copy;
@@ -108,7 +135,7 @@ public:
      * @param search
      * @return String
      */
-    String * before(String &search) {
+    String * before(String * search) {
         size_t position = this->at(search);
 
         if (position == NPOS)
@@ -122,7 +149,7 @@ public:
      * @param search
      * @return String
      */
-    String * beforeLast(String &search) {
+    String * beforeLast(String * search) {
         String * copy = this->copy();
         size_t position = this->at(search);
         size_t result;
@@ -132,7 +159,7 @@ public:
 
         while (position != NPOS) {
             result = position;
-            copy = copy->sub(position + search.count(), this->count() - search.count());
+            copy = copy->sub(position + search->count(), this->count() - search->count());
             position = copy->at(search);
         }
 
@@ -145,7 +172,7 @@ public:
      * @param end
      * @return String
      */
-    String * between(String &start, String &end) {
+    String * between(String * start, String * end) {
         String * copy = this->copy();
         copy = copy->afterLast(start);
         return copy->beforeLast(end);
@@ -157,7 +184,7 @@ public:
      * @param end
      * @return String
      */
-    String * betweenFirst(String &start, String &end) {
+    String * betweenFirst(String * start, String * end) {
         String * copy = this->copy();
         copy = copy->after(start);
         return copy->before(end);

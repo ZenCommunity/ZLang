@@ -1,11 +1,8 @@
 #include "core/core.h"
 
 int main(int argc, char * argv[]) {
-    App * instance = AppContainer::GetInstance();
-
-    cout << argc << endl;
-
-    cout << argv[0] << endl;
-
+    string source = argv[1];
+    auto * engine = new Engine;
+    engine->start(source);
     return 0;
 }
