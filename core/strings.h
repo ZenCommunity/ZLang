@@ -33,7 +33,7 @@ public:
      */
     size_t count() {
         return value_.length();
-    };
+    }
 
     /**
      * Returns the position of the given value.
@@ -42,7 +42,7 @@ public:
      */
     size_t at(String * search) {
         return value_.find(search->value_);
-    };
+    }
 
     /**
      * Returns a substring given the min and max.
@@ -52,7 +52,7 @@ public:
      */
     String * sub(size_t min, size_t max) {
         return new String(value_.substr(min, max));
-    };
+    }
 
     /**
      * Determines if the given string is at the start.
@@ -96,7 +96,7 @@ public:
      */
     Boolean * contains(String * search) {
         return new Boolean(this->at(search) != NPOS);
-    };
+    }
 
     /**
      * Returns everything after the given value.
@@ -145,7 +145,7 @@ public:
             position = copy->at(search);
         }
         return copy;
-    };
+    }
 
     /**
      * Returns everything before the given value.
@@ -159,7 +159,7 @@ public:
             throw StringException::NotFound();
 
         return this->sub(0, position);
-    };
+    }
 
     /**
      * Returns everything before the last occurrence.
@@ -181,7 +181,7 @@ public:
         }
 
         return this->sub(0, result);
-    };
+    }
 
     /**
      * Returns the portion of a string between two values.
@@ -193,7 +193,7 @@ public:
         String * copy = this->copy();
         copy = copy->afterLast(start);
         return copy->beforeLast(end);
-    };
+    }
 
     /**
      * Returns the smallest possible portion of a string between two values.
@@ -205,7 +205,7 @@ public:
         String * copy = this->copy();
         copy = copy->after(start);
         return copy->before(end);
-    };
+    }
 };
 
 #endif
