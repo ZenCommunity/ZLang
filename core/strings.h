@@ -64,6 +64,23 @@ public:
     }
 
     /**
+     * Determines if the string is empty.
+     * @return Boolean
+     */
+    Boolean * isEmpty() {
+        return new Boolean(this->value_ == "");
+    }
+
+    /**
+     * Determines if the given string is equals to the current.
+     * @param search
+     * @return Boolean
+     */
+    Boolean * equals(String * search) {
+        return new Boolean(this->value_ == search->value_);
+    }
+
+    /**
      * Determines if the given string is at the start.
      * @param search
      * @return Boolean

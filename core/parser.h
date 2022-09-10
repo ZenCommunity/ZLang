@@ -12,9 +12,16 @@ typedef enum _InstructionType {
 
 class Instruction {
 public:
+    explicit Instruction(InstructionType type, String * line) : type_(type), line_(line) {}
+    String * getLine() {
+        return line_;
+    }
+    InstructionType getType() {
+        return type_;
+    }
+protected:
     InstructionType type_ = UNDEFINED;
     String * line_;
-    explicit Instruction(InstructionType type, String * line) : type_(type), line_(line) {}
 };
 
 class Code {
@@ -39,26 +46,6 @@ public:
                 cout << line << endl;
                 auto * current = new String(line);
                 InstructionType instructionType = getType(current);
-                switch (instructionType) {
-                    case InstructionType::UNDEFINED:
-                        cout << "Line can't be parsed" << endl;
-                        break;
-                    case InstructionType::DEFINITION:
-                        cout << "IS A DEFINITION." << endl;
-                        break;
-                    case InstructionType::ASSIGNMENT:
-                        cout << "IS A ASSIGNMENT." << endl;
-                        break;
-                    case InstructionType::LOOP:
-                        cout << "IS A LOOP." << endl;
-                        break;
-                    case InstructionType::CONDITIONAL:
-                        cout << "IS A CONDITIONAL." << endl;
-                        break;
-                    case InstructionType::INVOCATION:
-                        cout << "IS A INVOCATION." << endl;
-                        break;
-                }
                 code->instructions.push_back(new Instruction(instructionType, current));
             }
         }

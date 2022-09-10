@@ -23,6 +23,8 @@ public:
         Boolean * _boolean;
     } _value{};
 
+    Value() {}
+
     Value(String * value) {
         _value._string = value;
         _type = Type::_STRING;
@@ -65,12 +67,17 @@ public:
 
 class Variable {
 public:
-    string _name;
+    String * _name;
     Value * _value;
 
-    Variable(string name) {
+    Variable(String * name) {
         _name = name;
         _value = {};
+    };
+
+    Variable(String * name, Value * value) {
+        _name = name;
+        _value = value;
     };
 
     /**
@@ -93,7 +100,7 @@ public:
      * Returns the name.
      * @return
      */
-    string getName() const {
+    String * getName() const {
         return _name;
     };
 };
@@ -115,10 +122,12 @@ public:
      * @param name
      * @return
      */
-    Variable * get(string & name) {
+    Variable * get(String * name) {
         for (Variable * variable : variables)
         {
-            if (variable->_name == name) {
+            if (variable->getName()
+                        ->equals(name)
+                        ->isTrue()) {
                 return variable;
             }
         }
@@ -126,14 +135,43 @@ public:
     };
 
     /**
+     * Debug
+     * @param name
+     */
+    void debug() {
+        cout << "============ START DEBUG ============" << endl;
+        for (Variable * variable : variables)
+        {
+            if (variable->getValue())
+            cout << "Name: " << *variable->getName() << "     Value: ";
+            switch (variable->getValue()->_type) {
+                case _UNDEFINED:
+                    cout << "UNDEFINED" << endl;
+                    break;
+                case _STRING:
+                    cout << *variable->getValue()->getString() << endl;
+                    break;
+                case _BOOLEAN:
+                    cout << *variable->getValue()->getBoolean() << endl;
+                    break;
+                case _NUMBER:
+                    cout << *variable->getValue()->getNumber() << endl;
+                    break;
+            }
+        }
+        cout << "============  END DEBUG  ============" << endl;
+    };
+
+    /**
      * Determines if the given string exists as variable on the stack.
      * @param name
      * @return
      */
-    boolean exists(string & name) {
-        return ranges::any_of(variables, [name](Variable * variable) {
-            return variable->_name == name;
-        });
+    Boolean * exists(String * name) {
+        return new Boolean(ranges::any_of(variables, [name](Variable * variable) {
+            return variable->getName()
+                           ->equals(name)->isTrue();
+        }));
     };
 };
 #endif
