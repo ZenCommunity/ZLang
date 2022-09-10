@@ -7,6 +7,7 @@
 #include "numbers.h"
 #include "booleans.h"
 #include "strings.h"
+#include "objects.h"
 #include "variables.h"
 #include "contexts.h"
 #include "functions.h"
@@ -14,7 +15,7 @@
 #include "output.h"
 #include "parser.h"
 
-#include "engine.h"
+#include "storage.h"
 #include "app.h"
 
 #endif

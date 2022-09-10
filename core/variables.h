@@ -11,6 +11,7 @@ enum Type {
     _STRING = 0x00000001,
     _BOOLEAN = 0x00000002,
     _NUMBER = 0x00000003,
+    _OBJECT = 0x00000004,
 };
 
 class Value {
@@ -21,6 +22,7 @@ public:
         Number * _number;
         String * _string;
         Boolean * _boolean;
+        Object * _object;
     } _value{};
 
     Value() {}
@@ -37,6 +39,11 @@ public:
 
     Value(Number * value) {
         _value._number = value;
+        _type = Type::_NUMBER;
+    }
+
+    Value(Object * value) {
+        _value._object = value;
         _type = Type::_NUMBER;
     }
 
@@ -62,6 +69,14 @@ public:
      */
     Number * getNumber() {
         return _value._number;
+    }
+
+    /**
+     * Get Object
+     * @return
+     */
+    Object * getObject() {
+        return _value._object;
     }
 };
 
@@ -102,76 +117,6 @@ public:
      */
     String * getName() const {
         return _name;
-    };
-};
-
-class Storage {
-public:
-    vector<Variable *> variables;
-
-    /**
-     * Insert variable into stack.
-     * @param variable
-     */
-    void insert(Variable * variable) {
-        variables.push_back(variable);
-    };
-
-    /**
-     * Get variable from stack.
-     * @param name
-     * @return
-     */
-    Variable * get(String * name) {
-        for (Variable * variable : variables)
-        {
-            if (variable->getName()
-                        ->equals(name)
-                        ->isTrue()) {
-                return variable;
-            }
-        }
-        throw Variables::NotFound();
-    };
-
-    /**
-     * Debug
-     * @param name
-     */
-    void debug() {
-        cout << "============ START DEBUG ============" << endl;
-        for (Variable * variable : variables)
-        {
-            if (variable->getValue())
-            cout << "Name: " << *variable->getName() << "     Value: ";
-            switch (variable->getValue()->_type) {
-                case _UNDEFINED:
-                    cout << "UNDEFINED" << endl;
-                    break;
-                case _STRING:
-                    cout << *variable->getValue()->getString() << endl;
-                    break;
-                case _BOOLEAN:
-                    cout << *variable->getValue()->getBoolean() << endl;
-                    break;
-                case _NUMBER:
-                    cout << *variable->getValue()->getNumber() << endl;
-                    break;
-            }
-        }
-        cout << "============  END DEBUG  ============" << endl;
-    };
-
-    /**
-     * Determines if the given string exists as variable on the stack.
-     * @param name
-     * @return
-     */
-    Boolean * exists(String * name) {
-        return new Boolean(ranges::any_of(variables, [name](Variable * variable) {
-            return variable->getName()
-                           ->equals(name)->isTrue();
-        }));
     };
 };
 #endif

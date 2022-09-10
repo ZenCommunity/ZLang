@@ -1,10 +1,8 @@
 #ifndef Z_INPUT_H
 #define Z_INPUT_H
 
-class Input {
+class Input : public Object {
     Value * value;
-
-    Input() {}
 
     void read() {
     }

@@ -9,17 +9,16 @@ enum Scope {
     _protected,
 };
 
-class Context {
-public:
-    Scope getScope() {
-        return this->scope;
-    };
-    Storage getStorage() {
-        return this->storage;
-    };
-protected:
-    Storage storage;
-    Scope scope = _undefined;
-};
+//class Context {
+//public:
+//    Scope getScope() {
+//        return this->scope;
+//    };
+//    Storage getStorage() {
+//        return this->storage;
+//    };
+//protected:
+//    Scope scope = _undefined;
+//};
 
 #endif

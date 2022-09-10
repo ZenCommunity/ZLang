@@ -16,7 +16,7 @@ public:
     explicit Function() = default;
 private:
     string name;
-    Context context;
+//    Context context;
     std::function<T(Parameters)> lambda;
 };
 

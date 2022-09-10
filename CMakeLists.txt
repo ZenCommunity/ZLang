@@ -1,6 +1,9 @@
 cmake_minimum_required(VERSION 3.23)
 project(Z)
 
+find_package(Boost 1.80 REQUIRED COMPONENTS program_options regex json)
+include_directories(${Boost_INCLUDE_DIRS})
+
 set(CMAKE_CXX_STANDARD 23)
 set(MAIN main.cpp)
 set(CORE_DIR core)
@@ -8,6 +11,7 @@ set(CORE ${CORE_DIR}/core.h)
 set(NUMBERS ${CORE_DIR}/numbers.h)
 set(STRINGS ${CORE_DIR}/strings.h)
 set(BOOLEANS ${CORE_DIR}/booleans.h)
+set(OBJECTS ${CORE_DIR}/objects.h)
 set(HEADERS ${CORE_DIR}/headers.h)
 set(EXCEPTIONS ${CORE_DIR}/exceptions.h)
 set(TYPES ${CORE_DIR}/types.h)
@@ -25,6 +29,7 @@ add_executable(
         ${NUMBERS}
         ${STRINGS}
         ${BOOLEANS}
+        ${OBJECTS}
         ${HEADERS}
         ${EXCEPTIONS}
         ${TYPES}
@@ -35,3 +40,5 @@ add_executable(
         ${ENGINE}
         ${APP}
 )
+
+target_link_libraries(Z ${Boost_LIBRARIES})
