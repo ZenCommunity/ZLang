@@ -32,6 +32,58 @@ namespace App::Exceptions {
 }
 
 namespace App::Types {
+    class Boolean;
+    class String;
+    class Number;
+    class Object;
+}
+
+namespace App::Memory {
+    enum Type {
+        UNDEFINED = 0x00000000,
+        STRING = 0x00000001,
+        BOOLEAN = 0x00000002,
+        NUMBER = 0x00000003,
+        OBJECT = 0x00000004,
+    };
+    class Variable;
+    class Value;
+}
+
+namespace App::Functions {
+    class Functions;
+    class Function;
+}
+
+namespace App::Storage {
+    class WarehouseContainer;
+    class Warehouse;
+}
+
+namespace App::Engine {
+    typedef enum _InstructionType {
+        ASSIGNMENT = 0x00000001,
+        DEFINITION = 0x00000002,
+        LOOP = 0x00000003,
+        CONDITIONAL = 0x00000004,
+        UNDEFINED = 0x00000005,
+        INVOCATION = 0x00000006,
+    } InstructionType;
+    class Instructions;
+    class Instruction;
+    class Parser;
+}
+
+namespace App::IO {
+    namespace Input {
+        class Instance;
+    }
+    namespace Output {
+        class Instance;
+    }
+}
+
+namespace App::Types {
     class Boolean {
     public:
         explicit Boolean(boolean value) : value_(value) {}
@@ -83,12 +135,16 @@ namespace App::Types {
 }
 
 namespace App::Memory {
-    enum Type {
-        UNDEFINED = 0x00000000,
-        STRING = 0x00000001,
-        BOOLEAN = 0x00000002,
-        NUMBER = 0x00000003,
-        OBJECT = 0x00000004,
+    class Variable {
+    public:
+        explicit Variable(App::Types::String * name);
+        explicit Variable(App::Types::String * name, Value * value);
+        App::Types::String * getName();
+        void setValue(Value * value);
+        auto getValue();
+    private:
+        App::Types::String * _name;
+        Value * _value;
     };
     class Value {
     public:
@@ -111,20 +167,16 @@ namespace App::Memory {
             App::Types::Object * _object;
         } _value{};
     };
-    class Variable {
-    public:
-        explicit Variable(App::Types::String * name);
-        explicit Variable(App::Types::String * name, Value * value);
-        App::Types::String * getName();
-        void setValue(Value * value);
-        auto getValue();
-    private:
-        App::Types::String * _name;
-        Value * _value;
-    };
 }
 
 namespace App::Functions {
+    class Functions {
+    public:
+        Function * get(App::Types::String * name);
+        void insert(Function * function);
+    private:
+        vector<Function *> * _storage;
+    };
     class Function {
     public:
         App::Types::String * _name;
@@ -133,26 +185,9 @@ namespace App::Functions {
         [[nodiscard]] App::Types::String * getName() const;
         [[nodiscard]] function<void()> getLambda() const;
     };
-    class Functions {
-    public:
-        Function * get(App::Types::String * name);
-        void insert(Function * function);
-    private:
-        vector<Function *> * _storage;
-    };
 }
 
 namespace App::Storage {
-    class Warehouse {
-    public:
-        explicit Warehouse() = default;
-        void insert(App::Memory::Variable * variable);
-        App::Memory::Variable * get(App::Types::String * name);
-        void debug();
-        Types::Boolean * exists(Types::String * name);
-    private:
-        vector<App::Memory::Variable *>  _variables;
-    };
     class WarehouseContainer {
     private:
         static Warehouse * instance;
@@ -166,17 +201,19 @@ namespace App::Storage {
         static auto *getInstance();
         static auto *createInstance();
     };
+    class Warehouse {
+    public:
+        explicit Warehouse() = default;
+        void insert(App::Memory::Variable * variable);
+        App::Memory::Variable * get(App::Types::String * name);
+        void debug();
+        Types::Boolean * exists(Types::String * name);
+    private:
+        vector<App::Memory::Variable *>  _variables;
+    };
 }
 
-namespace Engine {
-    typedef enum _InstructionType {
-        ASSIGNMENT = 0x00000001,
-        DEFINITION = 0x00000002,
-        LOOP = 0x00000003,
-        CONDITIONAL = 0x00000004,
-        UNDEFINED = 0x00000005,
-        INVOCATION = 0x00000006,
-    } InstructionType;
+namespace App::Engine {
     class Instruction {
     public:
         explicit Instruction(InstructionType type, App::Types::String * line) : _type(type), _line(line) {}

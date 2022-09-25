@@ -365,19 +365,19 @@ App::Types::String *App::Memory::Variable::getName() {
 /**
  * @return
  */
-App::Types::String *Engine::Instruction::getLine() {
+App::Types::String *App::Engine::Instruction::getLine() {
     return _line;
 }
 
-Engine::InstructionType Engine::Instruction::getType() {
+App::Engine::InstructionType App::Engine::Instruction::getType() {
     return _type;
 }
 
-vector<Engine::Instruction *> Engine::Instructions::getItems() {
+vector<App::Engine::Instruction *> App::Engine::Instructions::getItems() {
     return _instructions;
 }
 
-Engine::Instructions * Engine::Parser::getInstructions(App::Types::String *document)  {
+App::Engine::Instructions * App::Engine::Parser::getInstructions(App::Types::String *document)  {
     auto instructions = new Instructions;
     ifstream input;
     string line;
@@ -397,7 +397,7 @@ Engine::Instructions * Engine::Parser::getInstructions(App::Types::String *docum
     return instructions;
 }
 
-Engine::InstructionType Engine::Parser::getType(App::Types::String * current) {
+App::Engine::InstructionType App::Engine::Parser::getType(App::Types::String * current) {
     if (current->startsWith(new App::Types::String("if "))->isTrue()
         || current->startsWith(new App::Types::String("else if "))->isTrue()
         || current->startsWith(new App::Types::String("else "))->isTrue()) {
@@ -418,7 +418,7 @@ Engine::InstructionType Engine::Parser::getType(App::Types::String * current) {
     return InstructionType::UNDEFINED;
 }
 
-void Engine::Parser::run(App::Types::String * document) {
+void App::Engine::Parser::run(App::Types::String * document) {
     auto * code = getInstructions(document);
     for (auto instruction : code->getItems()) {
         switch(instruction->getType()) {
@@ -511,7 +511,7 @@ auto *App::Storage::WarehouseContainer::getInstance() {
     return instance;
 }
 
-void Engine::Parser::executeAssigment(Engine::Instruction * instruction) {
+void App::Engine::Parser::executeAssigment(App::Engine::Instruction * instruction) {
     auto name = instruction->getLine()->between(new App::Types::String("def "),new App::Types::String(" = "));
     auto nested = instruction->getLine()->after(new App::Types::String(" = "));
     auto warehouse = App::Storage::WarehouseContainer::getInstance();
